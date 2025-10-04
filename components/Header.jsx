@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { act, useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Search, Menu, X } from "lucide-react";
@@ -16,6 +16,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { usePathname, useRouter } from "next/navigation";
+import DarkMode from "./DarkMode";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -45,14 +46,14 @@ export default function Header() {
             <NavigationMenuItem>
               <NavigationMenuTrigger
                 className="
-      bg-indigo-50 hover:bg-indigo-200
+      bg-indigo-50  cursor-pointer
       data-[state=open]:bg-indigo-200 data-[state=open]:text-indigo-900
-    "
+     dark:bg-neutral-900  dark:data-[state=open]:bg-neutral-950 dark:data-[state=open]:text-indigo-50 "
               >
                 Movies
               </NavigationMenuTrigger>
 
-              <NavigationMenuContent className="p-0">
+              <NavigationMenuContent className="p-0 bg-indigo-100 dark:bg-neutral-800">
                 <ul className="grid w-[200px] gap-2 p-2">
                   {navItems.map((item, i) => {
                     const active = path === item.href;
@@ -63,8 +64,10 @@ export default function Header() {
                             href={item.href}
                             className={`block text-center rounded-md px-3 py-2 text-sm transition
                   hover:bg-indigo-200 hover:font-semibold
-                  ${active ? "bg-indigo-200 font-semibold" : ""}
-                `}
+                  dark:hover:bg-neutral-900
+                  ${active ? "bg-indigo-200 font-semibold" : ""} ${
+                              active ? "dark:bg-neutral-900" : ""
+                            } ${active ? "dark:font-bold" : ""} `}
                             aria-current={active ? "page" : undefined}
                           >
                             {item.title}
@@ -91,10 +94,11 @@ export default function Header() {
 
             <NavigationMenuItem>
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarImage src="/profile.jpg" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </NavigationMenuItem>
+            <DarkMode />
           </section>
 
           <button

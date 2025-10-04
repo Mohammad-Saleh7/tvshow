@@ -1,6 +1,7 @@
-import Header from "@/components/Header";
 import "./globals.css";
-import Footer from "@/components/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { ThemeProvider } from "next-themes";
 
 export const metadata = {
   title: "My App",
@@ -9,15 +10,25 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="bg-indigo-50">
-        <header className="w-full flex justify-center">
-          <Header />
-        </header>
-        {children}
-        <footer className="w-full ">
-          <Footer />
-        </footer>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className="min-h-dvh bg-indigo-50 text-gray-950 dark:bg-neutral-900 dark:text-indigo-50">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <header className="w-full flex justify-center">
+            <Header />
+          </header>
+
+          {children}
+
+          <footer className="w-full">
+            <Footer />
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
