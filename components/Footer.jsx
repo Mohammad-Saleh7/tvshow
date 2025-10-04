@@ -16,8 +16,8 @@ export default function Footer() {
   const path = usePathname();
 
   return (
-    <footer className=" bg-indigo-50   mb-5">
-      <div className="mx-auto max-w-6xl px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigo-50">
+    <footer className=" bg-indigo-50 dark:bg-neutral-900   mb-5">
+      <div className="mx-auto max-w-6xl px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-indigo-50 dark:bg-neutral-900">
         <p className="text-sm text-muted-foreground">
           © {year} <span className="font-semibold">TV SHOW</span>.
         </p>
@@ -30,7 +30,9 @@ export default function Footer() {
                 href={link.href}
                 className={`${path === link.href ? "font-bold" : ""} ${
                   path === link.href ? "bg-indigo-200" : ""
-                } hover:bg-indigo-200 py-1 px-3 rounded-2xl transition-all hover:scale-150 duration-300 `}
+                } ${
+                  path === link.href ? "dark:bg-neutral-950" : ""
+                } hover:bg-indigo-200 py-1 px-3 rounded-2xl transition-all hover:scale-150 duration-300 dark:bg-neutral-800 dark:hover:bg-neutral-950 `}
               >
                 {link.title}
               </Link>

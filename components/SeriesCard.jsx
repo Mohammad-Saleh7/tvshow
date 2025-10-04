@@ -19,7 +19,7 @@ export default function SeriesCard({
 }) {
   const router = useRouter();
   return (
-    <Card className="bg-indigo-200 mx-10 my-5 flex gap-6 items-start p-4 min-h-[150px]  transition-all hover:bg-indigo-300  duration-500  ">
+    <Card className="bg-indigo-200 mx-10 my-5 flex gap-6 items-start p-4 min-h-[150px]  transition-all hover:bg-indigo-300  duration-500 border-none  dark:bg-neutral-800 dark:hover:bg-neutral-950 ">
       <div className="flex-shrink-0">
         <div className="relative w-[100px] h-[150px] overflow-hidden rounded-lg hover:scale-150 duration-1000 transition-all  ">
           <Image
@@ -43,7 +43,7 @@ export default function SeriesCard({
           <p className="font-medium   ">IMDB: {vote_average?.toFixed(1)}</p>
           <div className="mt-2">
             <button
-              className="py-1.5 px-2 rounded-2xl bg-indigo-100  text-black hover:scale-110 transition-all duration-300"
+              className="  dark:bg-neutral-900 dark:text-indigo-50 py-1.5 px-2 rounded-2xl bg-indigo-100  text-black hover:scale-110 transition-all duration-300 cursor-pointer"
               onClick={() => router.push(href)}
             >
               View Details
