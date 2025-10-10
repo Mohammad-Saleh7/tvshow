@@ -8,7 +8,7 @@ export async function generateMetadata({ params }) {
     `https://api.themoviedb.org/3/person/${params.id}?api_key=${API_KEY}`
   );
   return {
-    title: `person-${data?.name || params.id}`,
+    title: `actors-${data?.name || params.id}`,
   };
 }
 
@@ -32,6 +32,7 @@ export default async function Page({ params }) {
   return (
     <div>
       <Persons
+        key={person.id}
         profile_path={person.profile_path}
         name={person.name}
         overview={person.known_for?.[0]?.overview || "No overview available"}

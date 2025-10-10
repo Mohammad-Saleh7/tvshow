@@ -10,6 +10,7 @@ export default function Footer() {
     { href: "/series", title: "Series" },
     { href: "/person", title: "Person" },
     { href: "/films", title: "Films" },
+    { href: "/likes", title: "Likes" },
     { href: "mailto:abbasisaleh895@gmail.com", title: "Email" },
   ];
 

@@ -15,6 +15,7 @@ export default function PersonCard({
   name,
   overview,
   vote_average,
+  id,
 }) {
   const router = useRouter();
   return (

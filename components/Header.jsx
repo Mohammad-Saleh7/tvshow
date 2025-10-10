@@ -26,7 +26,13 @@ export default function Header() {
     { href: "/", title: "Home" },
     { href: "/series", title: "Series" },
     { href: "/films", title: "Films" },
-    { href: "/person", title: "Person" },
+    { href: "/person", title: "Actors" },
+    { href: "/likes", title: "Likes" },
+  ];
+
+  const signItem = [
+    { href: "/signin", title: "SignIn" },
+    { href: "/signup", title: "SignUp" },
   ];
 
   const path = usePathname();
@@ -92,13 +98,31 @@ export default function Header() {
               </div>
             </NavigationMenuItem>
 
-            <NavigationMenuItem>
-              <Avatar>
-                <AvatarImage src="/profile.jpg" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+            <NavigationMenuItem className="flex flex-row gap-2 mr-1.5 ml-1.5">
+              {signItem.map((item, i) => (
+                <Link
+                  key={i}
+                  href={item.href}
+                  className={`px-4 py-1.5 rounded-2xl hover:scale-125 hover:bg-indigo-200 transition-all duration-300 hover:font-semibold
+                  dark:hover:bg-neutral-800 ${
+                    path === item.href ? "bg-indigo-200" : "none"
+                  } ${path === item.href ? "font-bold" : "none"} ${
+                    path === item.href ? "dark:bg-neutral-950" : "none"
+                  } ${path === item.href ? "font-bold" : "none"} `}
+                >
+                  {item.title}
+                </Link>
+              ))}
             </NavigationMenuItem>
             <DarkMode />
+            <div>
+              <p
+                className="text-3xl cursor-pointer animate-pulse"
+                onClick={() => router.push("/likes")}
+              >
+                ❤️
+              </p>
+            </div>
           </section>
 
           <button

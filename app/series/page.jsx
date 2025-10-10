@@ -24,6 +24,7 @@ export default async function page() {
     <div>
       {series.map((item) => (
         <SeriesCard
+          id={item.id}
           key={item.id}
           poster_path={item.poster_path}
           original_name={item.original_name}

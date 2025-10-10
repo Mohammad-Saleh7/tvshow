@@ -2,6 +2,8 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ThemeProvider } from "next-themes";
+import { Provider } from "react-redux";
+import ProviderClient from "./ProviderClient";
 
 export const metadata = {
   title: "My App",
@@ -13,12 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head />
       <body className="min-h-dvh bg-indigo-50 text-gray-950 dark:bg-neutral-900 dark:text-indigo-50">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ProviderClient>
           <header className="w-full flex justify-center">
             <Header />
           </header>
@@ -28,7 +25,7 @@ export default function RootLayout({ children }) {
           <footer className="w-full">
             <Footer />
           </footer>
-        </ThemeProvider>
+        </ProviderClient>
       </body>
     </html>
   );

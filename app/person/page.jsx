@@ -2,7 +2,7 @@ import { getData } from "@/utils/dataServices";
 import dynamic from "next/dynamic";
 
 export const metadata = {
-  title: "Person",
+  title: "actors",
   description: "Some popular persons",
 };
 
@@ -22,6 +22,7 @@ export default async function page() {
     <div>
       {persons.map((item) => (
         <Persons
+          id={item.id}
           key={item.id}
           profile_path={item.profile_path}
           name={item.name}

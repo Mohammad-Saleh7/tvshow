@@ -43,8 +43,8 @@ export default function SeriesCard({
           <p className="font-medium   ">IMDB: {vote_average?.toFixed(1)}</p>
           <div className="mt-2">
             <button
+              className=" dark:bg-neutral-900 dark:text-indigo-50 py-1.5 px-2 rounded-2xl bg-indigo-100  text-black  hover:text-white  cursor-pointer hover:scale-110 transition-all duration-300 hover:bg-red-700"
               onClick={() => router.back()}
-              className="  dark:bg-neutral-900 dark:text-indigo-50 py-1.5 px-4 rounded-2xl bg-indigo-100  text-black hover:scale-110 transition-all duration-300 cursor-pointer"
             >
               Back
             </button>

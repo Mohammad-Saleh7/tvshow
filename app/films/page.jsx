@@ -23,6 +23,7 @@ export default async function page() {
     <div>
       {films.map((item) => (
         <Films
+          id={item.id}
           key={item.id}
           overview={item.overview}
           poster_path={item.poster_path}
