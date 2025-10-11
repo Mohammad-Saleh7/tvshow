@@ -137,65 +137,6 @@ export default function Header() {
 
         <NavigationMenuViewport />
       </NavigationMenu>
-
-      {open && (
-        <div className="mt-3 grid gap-3 md:hidden">
-          <NavigationMenuItem>
-            <div className="relative w-full">
-              <Input
-                placeholder="search movie"
-                className="h-10 w-full rounded-2xl border-2 border-black pr-10"
-              />
-              <Search className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 opacity-70" />
-            </div>
-          </NavigationMenuItem>
-
-          <div className="flex items-center justify-between">
-            <NavigationMenuItem>
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="h-10 px-3">
-                Simple
-              </NavigationMenuTrigger>
-              <NavigationMenuContent />
-            </NavigationMenuItem>
-          </div>
-
-          <ul className="grid gap-2">
-            <ListItem href="#" title="Home">
-              Go to homepage
-            </ListItem>
-            <ListItem href="#" title="Movies">
-              Browse movies
-            </ListItem>
-            <ListItem href="#" title="Blog">
-              Latest posts
-            </ListItem>
-          </ul>
-        </div>
-      )}
     </div>
-  );
-}
-
-function ListItem({ title, children, href = "#", ...props }) {
-  return (
-    <li {...props}>
-      <NavigationMenuLink asChild>
-        <Link href={href} className="block rounded-md p-2 hover:bg-gray-100">
-          <div className="text-sm font-medium leading-none">{title}</div>
-          {children && (
-            <p className="text-sm leading-snug text-muted-foreground line-clamp-2">
-              {children}
-            </p>
-          )}
-        </Link>
-      </NavigationMenuLink>
-    </li>
   );
 }
