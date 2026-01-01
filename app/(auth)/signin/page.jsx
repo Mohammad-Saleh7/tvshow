@@ -1,4 +1,4 @@
-import Form from "../../../components/Signin";
+import Form from "../../../components/SignIn";
 import React from "react";
 
 export const metadata = {
