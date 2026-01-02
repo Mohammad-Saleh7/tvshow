@@ -1,11 +1,9 @@
 "use client";
 
-import React, { act, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Search, Menu, X } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,35 +19,63 @@ import DarkMode from "./DarkMode";
 export default function Header() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
-
-  const navItems = [
-    { href: "/", title: "Home" },
-    { href: "/series", title: "Series" },
-    { href: "/films", title: "Films" },
-    { href: "/person", title: "Actors" },
-    { href: "/likes", title: "Likes" },
-  ];
-
-  const signItem = [
-    { href: "/signin", title: "SignIn" },
-    { href: "/signup", title: "SignUp" },
-  ];
-
   const path = usePathname();
+
+  const navItems = useMemo(
+    () => [
+      { href: "/", title: "Home" },
+      { href: "/series", title: "Series" },
+      { href: "/films", title: "Films" },
+      { href: "/person", title: "Actors" },
+      { href: "/likes", title: "Likes" },
+    ],
+    []
+  );
+
+  const signItem = useMemo(
+    () => [
+      { href: "/signin", title: "SignIn" },
+      { href: "/signup", title: "SignUp" },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    setOpen(false);
+  }, [path]);
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
     <div className="relative">
       <NavigationMenu className="w-full px-4 py-4 md:px-10">
-        <NavigationMenuList className="flex w-full items-center justify-start lg:justify-between lg:gap-96 md:gap-60 ">
-          <section className="flex gap-5">
-            <NavigationMenuItem>
+        <NavigationMenuList className="flex w-full items-center justify-between gap-3">
+          <section className="flex items-center gap-3 sm:gap-5 min-w-0">
+            <NavigationMenuItem className="shrink-0">
               <p
-                className="font-bold text-2xl cursor-pointer "
+                className="font-bold text-xl sm:text-2xl cursor-pointer whitespace-nowrap"
                 onClick={() => router.push("/")}
               >
                 <span className="text-teal-700">TV</span> SHOW
               </p>
             </NavigationMenuItem>
-            <NavigationMenuItem>
+
+            <NavigationMenuItem className="hidden sm:block">
               <NavigationMenuTrigger
                 className="
       bg-indigo-50  cursor-pointer
@@ -89,7 +115,7 @@ export default function Header() {
 
           <section className="hidden md:flex flex-row items-center gap-3">
             <NavigationMenuItem>
-              <div className="relative w-56">
+              <div className="relative w-52 lg:w-56">
                 <Input
                   placeholder="search movie"
                   className="w-full rounded-2xl border-2 border-black pr-10"
@@ -114,7 +140,9 @@ export default function Header() {
                 </Link>
               ))}
             </NavigationMenuItem>
+
             <DarkMode />
+
             <div>
               <p
                 className="text-3xl cursor-pointer animate-pulse"
@@ -127,7 +155,7 @@ export default function Header() {
 
           <button
             className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-gray-300"
-            aria-label="Open menu"
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((s) => !s)}
           >
@@ -135,8 +163,84 @@ export default function Header() {
           </button>
         </NavigationMenuList>
 
+        <div
+          className={[
+            "md:hidden overflow-hidden transition-[max-height,opacity] duration-300",
+            open ? "max-h-[560px] opacity-100 mt-4" : "max-h-0 opacity-0",
+          ].join(" ")}
+        >
+          <div className="rounded-xl border bg-white p-3 dark:bg-neutral-950 dark:border-neutral-800">
+            <div className="relative">
+              <Input
+                placeholder="search movie"
+                className="w-full rounded-2xl border-2 border-black pr-10"
+              />
+              <Search className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 opacity-70" />
+            </div>
+
+            <div className="mt-3">
+              <div className="grid grid-cols-2 gap-2">
+                {navItems.map((item, i) => {
+                  const active = path === item.href;
+                  return (
+                    <Link
+                      key={i}
+                      href={item.href}
+                      className={`block text-center rounded-md px-3 py-2 text-sm transition
+hover:bg-indigo-200 hover:font-semibold dark:hover:bg-neutral-900
+${
+  active ? "bg-indigo-200 font-semibold dark:bg-neutral-900 dark:font-bold" : ""
+}`}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      {item.title}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <div className="grid grid-cols-2 gap-2">
+                {signItem.map((item, i) => (
+                  <Link
+                    key={i}
+                    href={item.href}
+                    className={`px-4 py-2 rounded-2xl text-center text-sm hover:bg-indigo-200 transition-all duration-300 hover:font-semibold dark:hover:bg-neutral-800 ${
+                      path === item.href ? "bg-indigo-200" : "none"
+                    } ${path === item.href ? "font-bold" : "none"} ${
+                      path === item.href ? "dark:bg-neutral-950" : "none"
+                    } ${path === item.href ? "font-bold" : "none"} `}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3">
+                <DarkMode />
+                <p
+                  className="text-3xl cursor-pointer animate-pulse"
+                  onClick={() => router.push("/likes")}
+                >
+                  ❤️
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <NavigationMenuViewport />
       </NavigationMenu>
+
+      {open && (
+        <button
+          type="button"
+          className="fixed inset-0 z-40 md:hidden"
+          aria-label="Close menu overlay"
+          onClick={() => setOpen(false)}
+        />
+      )}
     </div>
   );
 }
