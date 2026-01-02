@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className="min-h-dvh bg-indigo-50 text-gray-950 dark:bg-neutral-900 dark:text-indigo-50">
+      <body className="min-h-dvh bg-indigo-50 text-gray-950 dark:bg-neutral-900 dark:text-indigo-50 font-tagesschrift ">
         <ProviderClient>
           <header className="w-full flex justify-center">
             <Header />
